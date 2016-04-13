@@ -17,6 +17,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 
 gem 'yomu'
+gem 'pdf-reader'
 
 gem 'pg'
 

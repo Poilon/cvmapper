@@ -11,8 +11,13 @@ class Cvparser
   end
 
   def parse_cv(f)
+    begin
+      pdf = PDF::Reader.new(f)
+    rescue
+      return
+    end
+    puts f
     split = f.split('/').last.split('.').first.split('_')
-
     student_infos = {
       full_name: split[0..1].join(' '),
       school: split[2]
@@ -25,13 +30,18 @@ class Cvparser
 
     return if Cv.find_by(cv_infos)
 
+
     Cv.create(
       cv_infos.merge(
         content: I18n.transliterate(
-          Yomu.read(:text, File.read(f)).gsub('’', "'")
+
+          pdf.pages.map(&:text).join(' ').gsub('’', "'")
+
         ).downcase.gsub(/[\?\!\,\;\:\{\}\[\]\-\_\/\|\<\>\(\)\"]+/, ' ').squish
       )
     )
+  rescue
+    return
   end
 
 end

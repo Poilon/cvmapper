@@ -5,10 +5,20 @@ class Student < ApplicationRecord
   has_many :cvs, dependent: :destroy
 
 
-  def construct_skills
+  def self.construct_skills
+    skills_array = Skill.all.map(&:name)
+    all.each { |e| e.construct_skills(skills_array)}
+  end
+
+  def construct_skills(skills_array)
     cvs.each do |cv|
-      Skill.all.each do |skill|
-        puts skill.name if cv.content.match(/[\s\.\#]+#{skill.name}[\s\.]+/)
+      puts full_name
+      skills_array.each do |sk|
+        next unless cv.content.match(/[\s\.\#]+#{sk}[\s\.]+/)
+        next if skills.map(&:name).include?(sk)
+        dbskill = Skill.find_by(name: sk)
+        skills = dbskill.parent || dbskill
+        save
       end
     end
 
