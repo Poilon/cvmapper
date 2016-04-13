@@ -1,0 +1,67 @@
+Style/DotPosition:
+  EnforcedStyle: trailing
+
+Metrics/LineLength:
+  Max: 100
+
+Style/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+Style/ExtraSpacing:
+  # When true, allows most uses of extra spacing if the intent is to align
+  # things with the previous or next line, not counting empty lines or comment
+  # lines.
+  AllowForAlignment: true
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/EmptyLinesAroundClassBody:
+  EnforcedStyle: empty_lines
+  SupportedStyles:
+    - empty_lines
+    - no_empty_lines
+
+Style/EmptyLinesAroundModuleBody:
+  EnforcedStyle: no_empty_lines
+  SupportedStyles:
+    - empty_lines
+    - no_empty_lines
+
+Style/EmptyLinesAroundBlockBody:
+  Description: "Keeps track of empty lines around block bodies."
+  Enabled: false
+
+Style/EmptyLines:
+  Description: "Don't use several empty lines in a row."
+  Enabled: true
+
+Style/EndOfLine:
+  Description: 'Use Unix-style line endings.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#crlf'
+  Enabled: true
+
+Style/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Style/WordArray:
+  Description: 'Use %w or %W for arrays of words.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#percent-w'
+  Enabled: false
+
+Style/SignalException:
+  Description: 'This cop checks for uses of fail and raise.'
+  EnforcedStyle: only_fail
+
+Style/Alias:
+  Description: 'Advise the use of alias_method over the alias keyword whenever possible.'
+  Enable: true
+
+Style/CollectionMethods:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 15
