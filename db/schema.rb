@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160413125046) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "cvs", force: :cascade do |t|
     t.datetime "uploaded_at"
     t.integer  "student_id"
