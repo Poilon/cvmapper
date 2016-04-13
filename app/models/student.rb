@@ -17,7 +17,7 @@ class Student < ApplicationRecord
         next unless cv.content.match(/[\s\.\#]+#{sk}[\s\.]+/)
         next if skills.map(&:name).include?(sk)
         dbskill = Skill.find_by(name: sk)
-        skills = dbskill.parent || dbskill
+        skills << (dbskill.parent || dbskill)
         save
       end
     end
