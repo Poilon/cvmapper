@@ -1,13 +1,13 @@
+# coding: utf-8
 class Cvparser
 
   def initialize
-    @file_list = Dir.glob('./lib/cvparser/data/*.pdf')
+    @file_list     = Dir.glob('./lib/cvparser/data/*.pdf')
+    @what_language = WhatLanguage.new(:all)
   end
 
   def run
-    @file_list.each do |f|
-      parse_cv(f)
-    end
+    @file_list.each { |f| parse_cv(f) }
   end
 
   def parse_cv(f)
@@ -16,6 +16,7 @@ class Cvparser
     rescue
       return
     end
+
     puts f
     split = f.split('/').last.split('.').first.split('_')
     student_infos = {
@@ -28,19 +29,17 @@ class Cvparser
       uploaded_at: DateTime.parse(split[-1])
     }
 
-    return if Cv.find_by(cv_infos)
+    return unless Cv.find_by(cv_infos).nil?
 
+    content  = pdf.pages.map(&:text).join(' ').gsub('’', "'")
+    language = @what_language.language(content)
+    content  = I18n.transliterate(content).downcase.
+               gsub(/[\?\!\,\;\:\{\}\[\]\-\_\/\|\<\>\(\)\"]+/, ' ').
+               squish
 
-    Cv.create(
-      cv_infos.merge(
-        content: I18n.transliterate(
-
-          pdf.pages.map(&:text).join(' ').gsub('’', "'")
-
-        ).downcase.gsub(/[\?\!\,\;\:\{\}\[\]\-\_\/\|\<\>\(\)\"]+/, ' ').squish
-      )
-    )
-  rescue
+    Cv.create(cv_infos.merge(content: content, language: language))
+  rescue Exception => e
+    binding.pry
     return
   end
 

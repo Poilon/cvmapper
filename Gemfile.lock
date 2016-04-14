@@ -169,6 +169,7 @@ GEM
     websocket-driver (0.6.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    whatlanguage (1.0.6)
     yomu (0.1.5)
 
 PLATFORMS
@@ -192,6 +193,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (~> 3.0)
+  whatlanguage
   yomu
 
 BUNDLED WITH
