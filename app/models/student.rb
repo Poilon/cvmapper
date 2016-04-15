@@ -35,7 +35,7 @@ class Student < ApplicationRecord
         klass = klass.to_s
         add_cv_language if klass == 'Language'
         array.each do |e|
-          next unless cv.content.match(/[\s\.\#]+#{e}[\s\.]+/)
+          next unless cv.content.match(/[\s\.\#]+#{e.gsub('(', '\(').gsub(')', '\)')}[\s\.]+/)
           record = klass.constantize.find_by(name: e)
           truerecord = (record.parent || record)
           next if eval("#{klass.downcase.pluralize}.include?(truerecord)")

@@ -39,7 +39,6 @@ class Cvparser
 
     Cv.create(cv_infos.merge(content: content, language: language))
   rescue Exception => e
-    binding.pry
     return
   end
 
